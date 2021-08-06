@@ -1,0 +1,67 @@
+- 👋 Hi, I’m @Shrebhat
+- 👀 I’m interested in ...
+- 🌱 I’m currently learning ...
+- 💞️ I’m looking to collaborate on ...
+- 📫 How to reach me ...
+
+<!---
+Shrebhat/Shrebhat is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+You can click the Preview link to take a look at your changes.
+--->
+import java.util.*;
+class Main
+{
+  static float freq[],b;
+ static  int n;
+  
+  public static float findOptimalCost(float[] freq, int i, int j, int level)
+  {
+  
+    if (j < i) {
+      return 0;
+    }
+
+    float optimalCost = Float.MAX_VALUE;
+
+      
+    for (int k = i; k <= j; k++)
+    {
+      
+     float  leftOptimalCost = findOptimalCost(freq, i, k - 1, level + 1);
+
+      
+      float rightOptimalCost = findOptimalCost(freq, k + 1, j, level + 1);
+
+    
+     float  cost = freq[k] * level + leftOptimalCost + rightOptimalCost;
+
+      
+      optimalCost = Float.min(optimalCost, cost);
+    }
+
+      b=j-1;
+    return optimalCost;
+  }
+
+
+  public static void main(String[] args)
+  {
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Enter the number of nodes :");
+    n = sc.nextInt();
+    System.out.println("random Frequencies generated for :");
+    Random r = new Random();
+    freq = new float[n+1];
+    for(int i=1;i<=n;i++){
+      //freq[i]=i;for best case
+      
+         freq[i]= r.nextFloat();//for average case
+         System.out.println("Node "+i+": "+freq[i]);
+    }
+
+    System.out.println("The optimal cost of constructing BST is "
+            + findOptimalCost(freq, 0, freq.length - 1, 1));
+            
+    System.out.println("root node :"+b );        
+  }
+}
